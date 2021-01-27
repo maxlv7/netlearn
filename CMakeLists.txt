@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.16)
+project(netlearn)
+
+set(CMAKE_CXX_STANDARD 17)
+include_directories(cppcode/include)
+
+add_executable(echo_server_poll cppcode/echo_server_poll.cpp)
+add_executable(simple_echo_server_one_thread_select cppcode/simple_echo_server_one_thread_select.cpp)
+add_executable(simple_echo_server_one_thread_select2 cppcode/simple_echo_server_one_thread_select2.cpp)
+add_executable(simple_echo_server_one_thread cppcode/simple_echo_server_one_thread.cpp)
