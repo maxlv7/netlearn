@@ -58,7 +58,7 @@ int main() {
                 char buffer[128];
                 auto port = ntohs(cli.sin_port);
                 auto addr = inet_ntop(AF_INET, &cli.sin_addr, buffer, sizeof(buffer));
-                printf("Client fd[%d] from: %s:%d\n", connfd, addr, port);
+//                printf("Client fd[%d] from: %s:%d\n", connfd, addr, port);
                 //为新建立连接的进程注册事件
                 event.data.fd = connfd;
                 event.events = EPOLLIN | EPOLLOUT;
@@ -79,7 +79,7 @@ int main() {
                 char buf[1024];
                 int readn = read(ev_list[i].data.fd, buf, 1023);
                 if (readn > 0) {
-                    for (int j = 0; j < 2048; ++j) {
+                    for (int j = 0; j < client_total; ++j) {
                         if (client[j].fd == ev_list[i].data.fd) {
                             auto &buf_v = client[j].buffer;
                             buf_v.insert(buf_v.end(), buf, buf + readn);
@@ -92,7 +92,7 @@ int main() {
                     }
                 } else if (readn == 0) {
                     //客户端断开连接
-                    cout << "close fd: " << ev_list[i].data.fd << endl;
+//                    cout << "close fd: " << ev_list[i].data.fd << endl;
                     close(ev_list[i].data.fd);
                     //fd设置为-1
                     for (int j = 0; j < client_total; ++j) {

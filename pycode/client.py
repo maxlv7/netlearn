@@ -11,6 +11,7 @@ async def tcp_echo_client(message):
 
     data = await reader.read(100)
     print(f'send:{message!r} -->Received: {data.decode()!r}')
+    assert message == data.decode()
 
     print('Close the connection')
     writer.close()
@@ -22,5 +23,5 @@ async def main(times):
 
 
 if __name__ == '__main__':
-    # for x in range(1000):
-    asyncio.run(main(1000), debug=True)
+    for x in range(1000):
+        asyncio.run(main(100), debug=True)
